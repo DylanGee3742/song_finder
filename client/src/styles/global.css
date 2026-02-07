@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Noto+Serif+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg:#050506;--s1:#0c0c0e;--s2:#131316;--s3:#1a1a1e;
+  --bd:#222226;--bd2:#2c2c32;
+  --t1:#f2f2f3;--t2:#8a8a96;--t3:#55555f;--t4:#38383f;
+  --w:#ffffff;--grn:#1ed760;
+  --fd:'Noto Serif Display', Georgia, serif;
+  --fb:'Manrope', system-ui, sans-serif;
+}

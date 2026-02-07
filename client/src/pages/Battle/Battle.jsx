@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { MODES } from "../constants/modes";
+import { MODES } from "../../constants/modes";
 
 export function Battle({ mode, onDone }) {
   const cfg = MODES[mode];
