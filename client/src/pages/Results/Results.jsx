@@ -17,6 +17,7 @@ export function Results() {
   useEffect(() => { setTimeout(() => setShow(true), 80); }, []);
 
   const top = ranked.slice(0, 5); // just show top 5 for simplicity
+  console.log(top)
 
   const onRestart = () => {
     alert("Restart battle clicked!");
@@ -53,10 +54,12 @@ export function Results() {
       {tab === "rankings" && (
         <div className="rk">
           {top.map((s, i) => (
-            <div key={s.id} className="rk-row">
+            <div key={s.id} className="rk-row" style={{ '--dl': `${i * 0.08}s` }}>
               <span className="rk-n">{i + 1}</span>
-              <span className="rk-t">{s.title}</span>
-              <span className="rk-a">{s.artist}</span>
+              <div className="rk-inf">
+                <span className="rk-t">{s.title}</span>
+                <span className="rk-a">{s.artist}</span>
+              </div>
             </div>
           ))}
         </div>
