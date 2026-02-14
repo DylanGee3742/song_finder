@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { MODES } from "../../constants/modes";
 import { mockSongs } from "../../data/mockData";
 import { SwipeCard } from "../../components/SwipeCard";
+import { useGameStore } from "../../store/gameStore";
 
 export function Battle() {
-  const mode = "quick";
+  const { gameMode: mode, source } = useGameStore();
+  console.log(source)
   const cfg = MODES[mode];
-  const maxR = Math.min(cfg.battles, 18);
+  const maxR = cfg.battles
   const navigate = useNavigate();
 
   const [round, setRound] = useState(0);
@@ -38,36 +40,14 @@ export function Battle() {
   const sA = mockSongs[pair[0]];
   const sB = mockSongs[pair[1]];
 
-  if (paused) {
-    return (
-      <div className="scr pause-scr">
-        <div className="pa-box">
-          <div className="pa-ic">❚❚</div>
-          <div className="pa-t">Paused</div>
-          <div className="pa-s">
-            {round}/{maxR} complete
-          </div>
-          <div className="pa-bar">
-            <div className="pa-fill" style={{ width: `${pct}%` }} />
-          </div>
-          <button className="btn-resume" onClick={() => setPaused(false)}>
-            Resume
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="scr battle">
       <div className="b-hd">
-        <button className="b-btn" onClick={() => setPaused(true)}>
-          ❚❚
-        </button>
         <span className="b-ct">
           {round + 1}
           <span className="b-dim">/{maxR}</span>
         </span>
+        <span className="b-sep">{source.name}</span>
         <span className="b-md">{cfg.label}</span>
       </div>
 
@@ -104,22 +84,6 @@ export function Battle() {
           />
         </div>
       </div>
-
-      {/* <div className="b-taps">
-        <button className="b-tap" onClick={advance}>
-          <span className="bt-song">{sA.title}</span>
-          <span className="bt-cta">Pick</span>
-        </button>
-
-        <button className="b-skip" onClick={advance}>
-          Skip
-        </button>
-
-        <button className="b-tap" onClick={advance}>
-          <span className="bt-song">{sB.title}</span>
-          <span className="bt-cta">Pick</span>
-        </button>
-      </div> */}
     </div>
   );
 }
