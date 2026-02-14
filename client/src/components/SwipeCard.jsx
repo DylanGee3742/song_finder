@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { Art } from "./Art";
 
 export function SwipeCard({ song, onSwipeLeft, onSwipeRight, entering, side, streak, isUpset }) {
   const startX = useRef(0);

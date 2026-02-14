@@ -1,36 +1,30 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { MODES } from "../../constants/modes";
 import { mockSongs } from "../../data/mockData";
-import { SwipeCard } from "../../components/SwipeCard";
 
-export function Battle() {
-  const mode = "quick";
+export function Battle({ mode, onDone }) {
   const cfg = MODES[mode];
   const maxR = Math.min(cfg.battles, 18);
-  const navigate = useNavigate();
 
   const [round, setRound] = useState(0);
   const [pair, setPair] = useState([0, 1]);
   const [paused, setPaused] = useState(false);
-  const [entering, setEntering] = useState(true); // for entry animation
 
-  // Compute current pair
+  // Simple pair progression (just moves forward through array)
   useEffect(() => {
     const a = (round * 2) % mockSongs.length;
     const b = (a + 1) % mockSongs.length;
     setPair([a, b]);
-    setEntering(true);
-    const t = setTimeout(() => setEntering(false), 300);
-    return () => clearTimeout(t);
   }, [round]);
 
   const advance = () => {
     const nextRound = round + 1;
+
     if (nextRound >= maxR) {
-      navigate("/results", { state: { songs: mockSongs, mode } });
+      onDone({ songs: mockSongs });
       return;
     }
+
     setRound(nextRound);
   };
 
@@ -76,36 +70,20 @@ export function Battle() {
       </div>
 
       <div className="b-zone">
-        <div className="b-stack">
-          <SwipeCard
-            key={`a-${sA.id}-${round}`}
-            song={sA}
-            side="left"
-            entering={entering}
-            streak={0}
-            isUpset={false}
-            onSwipeLeft={advance}   // just go to next round
-            onSwipeRight={advance}  // just go to next round
-          />
+        <div className="b-card">
+          <h3>{sA.title}</h3>
+          <p>{sA.artist}</p>
         </div>
 
         <div className="b-vs">VS</div>
 
-        <div className="b-stack">
-          <SwipeCard
-            key={`b-${sB.id}-${round}`}
-            song={sB}
-            side="right"
-            entering={entering}
-            streak={0}
-            isUpset={false}
-            onSwipeLeft={advance}
-            onSwipeRight={advance}
-          />
+        <div className="b-card">
+          <h3>{sB.title}</h3>
+          <p>{sB.artist}</p>
         </div>
       </div>
 
-      {/* <div className="b-taps">
+      <div className="b-taps">
         <button className="b-tap" onClick={advance}>
           <span className="bt-song">{sA.title}</span>
           <span className="bt-cta">Pick</span>
@@ -119,7 +97,7 @@ export function Battle() {
           <span className="bt-song">{sB.title}</span>
           <span className="bt-cta">Pick</span>
         </button>
-      </div> */}
+      </div>
     </div>
   );
 }

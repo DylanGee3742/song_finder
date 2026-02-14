@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { MODES } from "../../constants/modes";
+import { useNavigate } from "react-router-dom";
 
-function Setup({ onStart }) {
+export function Setup({ onStart }) {
+  const navigate = useNavigate();
   const [mode, setMode] = useState(null);
   const [src, setSrc] = useState(null);
   const [show, setShow] = useState(false);
@@ -33,7 +36,7 @@ function Setup({ onStart }) {
           ))}
         </div>
       </div>
-      <button className={`btn-begin ${mode&&src?"on":""}`} disabled={!mode||!src} onClick={()=>onStart(mode)}>
+      <button className={`btn-begin ${mode&&src?"on":""}`} disabled={!mode||!src} onClick={() => navigate("/battle")}>
         {mode&&src ? `Begin ${MODES[mode].battles} battles` : "Select mode & source"}
       </button>
     </div>
