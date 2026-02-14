@@ -42,7 +42,7 @@ export function Results() {
 
       {/* Tab navigation */}
       <div className="tabs">
-        {["rankings","dna","replay","ghosts"].map(t => (
+        {["rankings", "dna", "replay", "ghosts"].map(t => (
           <button key={t} className={`tab ${tab === t ? "on" : ""}`} onClick={() => setTab(t)}>
             {t === "rankings" ? "Rankings" : t === "dna" ? "Taste DNA" : t === "replay" ? "Replay" : t === "ghosts" ? "Ghost Battles" : ""}
           </button>

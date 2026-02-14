@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export function Landing({ onGo }) {
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => { setTimeout(() => setShow(true), 60); }, []);
 
